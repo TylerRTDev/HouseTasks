@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Choose a workspace</h1>
+
+  <p><a href="{% url 'workspaces:create' %}">- Add Workspace -</a></p>
+
+  {% if workspaces %}
+    <ul>
+      {% for w in workspaces %}
+        <li>
+          <h1>{{ w.name }}</h1>
+          <!-- Placeholder link until tasks exist -->
+          <a href="{% url 'tasks:task_list' workspace_slug=w.slug %}">Tasks</a> |
+          <a href="{% url 'lists:list_index' workspace_slug=w.slug %}">Lists</a> |
+          <a href="{% url 'workspaces:members' workspace_slug=w.slug %}">Members</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+  <br>
+  <br>
+    <p>You’re not a member of any workspaces yet.</p>
+  {% endif %}
+{% endblock %}

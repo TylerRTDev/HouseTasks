@@ -1,0 +1,30 @@
+<li id="task-{{ task.id }}">
+  <button
+    hx-post="{% url 'tasks:task_toggle_complete' workspace_slug=workspace.slug task_id=task.id %}"
+    hx-target="#task-{{ task.id }}"
+    hx-swap="outerHTML"
+  >
+    {% if task.is_complete %}✅{% else %}⬜{% endif %}
+  </button>
+
+  {{ task.title }}
+  {% if task.due_date %} — due {{ task.due_date }}{% endif %}
+
+  {% if task.assignees.all %}
+    <div style="font-size: 0.9rem; margin-top: 0.25rem;">
+      Assigned to:
+      {% for u in task.assignees.all %}
+        {% if u.first_name %}
+          {{ u.first_name }}
+        {% elif u.username %}
+          {{ u.username }}
+        {% elif u.email %}
+          {{ u.email }}
+        {% else %}
+          User {{ u.id }}
+        {% endif %}
+        {% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</li>

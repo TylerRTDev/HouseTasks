@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Tasks — {{ workspace.name }}{% endblock %}
+
+{% block content %}
+  <p>
+    <a href="{% url 'tasks:task_create' workspace_slug=workspace.slug %}">- Add New Task -</a>
+  </p>
+
+  <h1>{{ workspace.name }} Workspace — Tasks</h1>
+
+  {% if tasks %}
+    <ul>
+      {% for task in tasks %}
+        {% include "tasks/partials/task_row.html" with task=task workspace=workspace %}
+      {% endfor %}
+    </ul>
+  {% else %}
+  <br>
+  <br>
+  <br>
+    <p>No tasks yet.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %} 
+{% block title %}Lists — {{ workspace.name }}{%endblock %} {% block content %}
+<p>
+  <a href="{% url 'lists:list_create' workspace_slug=workspace.slug %}"
+    >- Create New List -</a
+  >
+</p>
+<h1>{{ workspace.name }} Workspace — Lists</h1>
+
+{% if lists %}
+<ul>
+  {% for l in lists %}
+  <li>
+    <h2>
+      <a
+        href="{% url 'lists:list_detail' workspace_slug=workspace.slug list_id=l.id %}"
+      >
+        {{ l.name }}
+      </a>
+    </h2>
+    {% if l.description %}
+    <p>{{ l.description }}</p>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<br />
+<br />
+<p>No lists yet.</p>
+{% endif %} {% endblock %}

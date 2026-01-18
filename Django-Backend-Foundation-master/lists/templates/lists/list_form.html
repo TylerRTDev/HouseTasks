@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}New List — {{ workspace.name }}{% endblock %}
+
+{% block content %}
+<h1>{% if list %}Edit list{% else %}New list{% endif %} — {{ workspace.name }}</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+  </form>
+
+  <p><a href="{% url 'lists:list_index' workspace_slug=workspace.slug %}">Back to lists</a></p>
+{% endblock %}

@@ -1,0 +1,18 @@
+<form
+  hx-post="{% url 'tasks:subtask_create' workspace_slug=workspace.slug task_id=parent.id %}"
+  hx-target="#subtasks-{{ parent.id }}"
+  hx-swap="beforeend"
+>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Add</button>
+
+  <button
+    type="button"
+    hx-get="about:blank"
+    hx-target="#subtask-form-{{ parent.id }}"
+    hx-swap="innerHTML"
+  >
+    Cancel
+  </button>
+</form>

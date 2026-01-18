@@ -1,0 +1,28 @@
+<li id="task-{{ task.id }}">
+  <form
+    hx-post="{% url 'tasks:task_update' workspace_slug=workspace.slug task_id=task.id %}"
+    hx-target="#task-{{ task.id }}"
+    hx-swap="outerHTML"
+  >
+    {% csrf_token %} {{ form.as_p }}
+
+    <button type="submit">Save</button>
+    <button
+      hx-get="{% url 'tasks:task_edit' workspace_slug=workspace.slug task_id=task.id %}"
+      hx-target="#task-{{ task.id }}"
+      hx-swap="outerHTML"
+      type="button"
+    >
+      Edit
+    </button>
+    
+    <button
+      hx-get="{% url 'tasks:task_row' workspace_slug=workspace.slug task_id=task.id %}"
+      hx-target="#task-{{ task.id }}"
+      hx-swap="outerHTML"
+      type="button"
+    >
+      Cancel
+    </button>
+  </form>
+</li>

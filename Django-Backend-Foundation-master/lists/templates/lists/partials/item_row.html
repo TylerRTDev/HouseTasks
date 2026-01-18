@@ -1,0 +1,52 @@
+<li id="item-{{ item.id }}">
+  <form
+    hx-post="{% url 'lists:item_toggle' workspace_slug=workspace.slug list_id=list.id item_id=item.id %}"
+    hx-target="#item-{{ item.id }}"
+    hx-swap="outerHTML"
+    style="display:inline;"
+  >
+    {% csrf_token %}
+    <button type="submit">
+      {% if item.is_checked %}✅{% else %}⬜{% endif %}
+    </button>
+  </form>
+
+  {{ item.text }}
+
+  <button
+    hx-get="{% url 'lists:item_edit' workspace_slug=workspace.slug list_id=list.id item_id=item.id %}"
+    hx-target="#item-{{ item.id }}"
+    hx-swap="outerHTML"
+    type="button"
+  >
+    Edit
+  </button>
+
+  <form
+    hx-post="{% url 'lists:item_delete' workspace_slug=workspace.slug list_id=list.id item_id=item.id %}"
+    hx-target="#item-{{ item.id }}"
+    hx-swap="outerHTML"
+    style="display:inline;"
+  >
+    {% csrf_token %}
+    <button type="submit" onclick="return confirm('Delete this item?');">Delete</button>
+  </form>
+
+  {% if item.is_checked %}
+    <small>
+      — checked
+      {% if item.checked_by %}
+        by
+        {% if item.checked_by.first_name %}
+          {{ item.checked_by.first_name }}
+        {% elif item.checked_by.username %}
+          {{ item.checked_by.username }}
+        {% elif item.checked_by.email %}
+          {{ item.checked_by.email }}
+        {% else %}
+          User {{ item.checked_by.id }}
+        {% endif %}
+      {% endif %}
+    </small>
+  {% endif %}
+</li>

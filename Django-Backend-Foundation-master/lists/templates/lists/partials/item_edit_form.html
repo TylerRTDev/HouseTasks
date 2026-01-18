@@ -1,0 +1,20 @@
+<li id="item-{{ item.id }}">
+  <form
+    hx-post="{% url 'lists:item_update' workspace_slug=workspace.slug list_id=list.id item_id=item.id %}"
+    hx-target="#item-{{ item.id }}"
+    hx-swap="outerHTML"
+    style="display: inline"
+  >
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+
+  <button
+    hx-get="{% url 'lists:item_row' workspace_slug=workspace.slug list_id=list.id item_id=item.id %}"
+    hx-target="#item-{{ item.id }}"
+    hx-swap="outerHTML"
+    type="button"
+  >
+    Cancel
+  </button>
+</li>

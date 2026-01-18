@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Members — {{ workspace.name }}</h1>
+
+  <h2>Add member</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add</button>
+  </form>
+
+  <h2>Current members</h2>
+  <ul>
+    {% for m in memberships %}
+      <li>{{ m.user }} — {{ m.get_role_display }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

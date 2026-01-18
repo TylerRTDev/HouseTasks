@@ -1,0 +1,216 @@
+/* =========================
+   RESET & BASE
+========================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  background-color: #0f0f0f;
+  color: #eaeaea;
+  line-height: 1.5;
+}
+
+/* =========================
+   LINKS & BUTTONS
+========================= */
+
+a {
+  color: #eaeaea;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font: inherit;
+  color: #eaeaea;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Make logout button look like a link */
+button.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #eaeaea;
+  text-decoration: underline;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #111;
+  border-bottom: 1px solid #222;
+  font-size: 0.9rem;
+  align-items: center;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+main {
+  padding: 1rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+}
+
+/* =========================
+   LISTS & TASKS
+========================= */
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+li {
+  padding: 0.75rem;
+  border-bottom: 1px solid #222;
+}
+
+/* Nested subtasks */
+li ul {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  border-left: 2px solid #222;
+}
+
+.task-header {
+  display: flex;
+}
+
+.task-header button {
+  background: none;
+  border: none;
+}
+
+/* =========================
+   FORMS
+========================= */
+
+form {
+  margin: 0.5rem 0;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  background: #121212;
+  color: #eaeaea;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 0.5rem;
+  font: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #555;
+}
+
+label {
+  font-size: 0.85rem;
+  color: #bbb;
+}
+
+form button {
+  margin-top: 0.5rem;
+}
+
+/* =========================
+   NAV LINK BUTTON (LOGOUT)
+========================= */
+
+.logout-form {
+  display: inline;
+}
+
+nav a,
+.nav-link-button {
+  line-height: 1.4;
+}
+
+.nav-link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: #eaeaea;
+  font: inherit;
+  cursor: pointer;
+}
+
+
+/* =========================
+   META TEXT
+========================= */
+
+small {
+  color: #aaa;
+  font-size: 0.75rem;
+}
+
+/* =========================
+   UTILITIES
+========================= */
+
+.muted {
+  color: #999;
+}
+
+.spacer {
+  margin-top: 1rem;
+}
+
+/* =========================
+   DESKTOP ENHANCEMENTS
+========================= */
+
+@media (min-width: 768px) {
+  nav {
+    font-size: 1rem;
+  }
+
+  main {
+    padding: 2rem;
+  }
+}

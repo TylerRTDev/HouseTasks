@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ list.name }} — {{ workspace.name }}{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'lists:list_index' workspace_slug=workspace.slug %}">- Back to lists -</a></p>
+
+  <h1>{{ list.name }}</h1>
+  {% if list.description %}<p>{{ list.description }}</p>{% endif %}
+
+  <p>
+    <a href="{% url 'lists:list_edit' workspace_slug=workspace.slug list_id=list.id %}">- Edit List -</a>
+  </p>
+
+    <h2>Add item</h2>
+  <form
+    hx-post="{% url 'lists:item_create' workspace_slug=workspace.slug list_id=list.id %}"
+    hx-target="#items ul"
+    hx-swap="beforeend"
+  >
+    {% csrf_token %}
+    {{ item_form.as_p }}
+    <button type="submit">Add</button>
+  </form>
+
+
+  <div id="items">
+    {% if items %}
+      <ul>
+        {% for item in items %}
+          {% include "lists/partials/item_row.html" with item=item list=list workspace=workspace %}
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No items yet.</p>
+      <ul></ul>
+    {% endif %}
+  </div>
+
+  <form method="post" action="{% url 'lists:list_delete' workspace_slug=workspace.slug list_id=list.id %}">
+  {% csrf_token %}
+  <button type="submit" onclick="return confirm('Delete this list?');">Delete list</button>
+</form>
+{% endblock %}

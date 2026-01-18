@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Task + Lists{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    <!-- HTMX (we can keep it even without other JS) -->
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  </head>
+  <body>
+    <nav>
+      {% if user.is_authenticated %}
+      <a href="{% url 'workspaces:chooser' %}">Workspaces</a>
+
+      {% if workspace %} |
+      <a href="{% url 'workspaces:create' %}">Create workspace</a>
+      |
+      <a href="{% url 'tasks:task_list' workspace_slug=workspace.slug %}"
+        >Tasks</a
+      >
+      |
+      <a href="{% url 'lists:list_index' workspace_slug=workspace.slug %}"
+        >Lists</a
+      >
+      |
+      <a href="{% url 'workspaces:members' workspace_slug=workspace.slug %}"
+        >Members</a
+      >
+      |
+      <a href="{% url 'workspaces:settings' workspace_slug=workspace.slug %}"
+        >Workspace settings</a
+      >
+      {% endif %} |
+      <form method="post" action="{% url 'logout' %}" style="display: inline" class="logout-form">
+        {% csrf_token %}
+        <button type="submit" class="nav-link-button">Logout</button>
+      </form>
+      {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </nav>
+
+    <main>{% block content %}{% endblock %}</main>
+
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <script>
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
+
+      document.body.addEventListener("htmx:configRequest", function (event) {
+        const token = getCookie("csrftoken");
+        if (token) {
+          event.detail.headers["X-CSRFToken"] = token;
+        }
+      });
+    </script>
+  </body>
+</html>
